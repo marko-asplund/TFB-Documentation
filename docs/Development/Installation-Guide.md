@@ -10,7 +10,7 @@ set up to have passwordless sudo access.
 **Setting up the `user`**
 
 ```bash
-sudo vim /etc/sudoers
+sudo visudo
 ```
 
 You will need to change the line that reads `%sudo   ALL=(ALL:ALL) ALL` to 
@@ -66,25 +66,19 @@ being prompted for a password. **NOTE** The first time you SSH to these machines
 
 ```bash
 # Test your database SSH setup
-ssh $TFB_DATABASE_HOST
+ssh $TFB_DATABASE_HOST 'sudo echo "ssh connection to DB server connection OK"'
 # Accept the signature
-# You are connected to the database machine!
-sudo ls
-# This should NOT prompt for a password and list the directory's contents
+# This should NOT prompt for a password and echo the above message.
 # If this is not true, go back to "Setting up the `user`" and fix it
-exit
 # Test your client SSH setup
 ssh $TFB_CLIENT_HOST
 # Accept the signature
 # You are connected to the client machine!
 sudo ls
 # We also need to test that we can SSH back to the server machine
-ssh [enter your server ip again]
+ssh [enter your server ip again] 'sudo echo "You are connected to the server machine"'
 # Accept the signature
-# You are connected to the server machine!
-sudo ls
 # If this works, you are golden!
-exit
 # Back on client
 exit
 # Back on initial ssh connection to server machine
